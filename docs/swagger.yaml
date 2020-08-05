@@ -1,0 +1,48 @@
+definitions:
+  v1controllers.Status:
+    properties:
+      database:
+        type: string
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  license: {}
+paths:
+  /heartbeat:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/v1controllers.Status'
+            - properties:
+                database:
+                  type: string
+                message:
+                  type: string
+                success:
+                  type: boolean
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1controllers.Status'
+      summary: ping example
+      tags:
+      - API Health
+securityDefinitions:
+  bearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
